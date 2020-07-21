@@ -1,23 +1,37 @@
 import sympy.polys.polyfuncs
 import sympy
+import matplotlib.pyplot as plt
+import numpy as np
 
 
-def Lagrange (Lx, Ly):
-    X=sympy.symbols('X')
-    if  len(Lx)!= len(Ly):
-        print("ERROR")
+def Lagrange(ListeAbscisse, ListeOrdonnée):
+    X = sympy.symbols('X')
+    if len(ListeAbscisse) != len(ListeOrdonnée):
+        print("Les listes d'abscisses et d'ordonnées en entrée n'ont pas la même longueur")
         return 1
-    y=0
-    for k in range ( len(Lx) ):
-        t=1
-        for j in range ( len(Lx) ):
+    expression = 0
+    for k in range(len(ListeAbscisse)):
+        terme = 1
+        for j in range(len(ListeAbscisse)):
             if j != k:
-                t=t* ( (X-Lx[j]) /(Lx[k]-Lx[j]) )
-        y+= t*Ly[k]
-    return y
+                terme = terme * ((X - ListeAbscisse[j]) / (ListeAbscisse[k] - ListeAbscisse[j]))
+        expression += terme * ListeOrdonnée[k]
+    return expression
 
+def DessinerGraphe(expression, echelle, ListeAbscisse, ListeOrdonnée):
+    plt.scatter(ListeAbscisse, ListeOrdonnée, c='k')
+    y = np.array(echelle)
+    x = eval(expression)
+    plt.plot(x, y)
+    plt.legend()
+    plt.show()
 
 if __name__ == "__main__":
-    Lx = [-4, -2, 0, 1, 3]
-    Ly = [16, 4, 0, 1, 9.]
-    print (Lagrange(Lx, Ly))
+    ListeAbscisse = [1, -1, 2]
+    ListeOrdonnée = [3, 2, -1]
+
+
+    result=sympy.simplify(Lagrange(ListeAbscisse, ListeOrdonnée))
+    print(result)
+
+    DessinerGraphe(str(result), range(-10,10), ListeAbscisse, ListeOrdonnée)
