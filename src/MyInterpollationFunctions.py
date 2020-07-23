@@ -24,5 +24,8 @@ def DessinerGraphe(expression, echelle, ListeAbscisse, ListeOrdonnée):
     x = np.array(echelle)
     y = eval(expression)
     plt.plot(x, y, linestyle=':')
+    plt.title(str(expression))
+    for x, y in zip(ListeAbscisse, ListeOrdonnée):
+        plt.text(x, y, '({}, {})'.format(x, y))
     plt.show()
 

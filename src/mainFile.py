@@ -45,7 +45,7 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
     equationDroite = sympy.simplify(lagrangeInterpollation)
     print(equationDroite)
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 5), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 10), ListeAbscisse, ListeOrdonnée)
 
 if __name__ == "__main__":
     input = parserInput()
