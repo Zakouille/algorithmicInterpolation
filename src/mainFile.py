@@ -3,16 +3,23 @@ import argparse
 import sortingAlgorithms
 import MyInterpollationFunctions
 import sympy
+import sys
+import pandas as pd
 
 
 def parserInput():
     parser = argparse.ArgumentParser()
 
+    parser.add_argument("methode", help="Merci de préciser la méthode souhaitée")
+
     parser.add_argument("data", help="Nuage de points nécessaire pour exécuter le programme."
                                      "Assurez-vous de respecter le format décrit dans la documentation.")
 
+    parser.add_argument("-p", "--pointNewton", help="Point à interpoler en utilisant Newton", type=float, default=2)
+
     args = parser.parse_args()
     return args
+
 
 def traiterInput(input):
     pointsFormatString = literal_eval(input.data)
@@ -34,6 +41,7 @@ def traiterInput(input):
 
     return resultat
 
+
 def executerLagrange(ListeAbscisse, ListeOrdonnée):
     print("Résultat en utilisant l'interpollation de Lagrange :\n")
 
@@ -47,11 +55,21 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
 
     MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 10), ListeAbscisse, ListeOrdonnée)
 
+
+def executerNewton(ListeAbscisse, ListeOrdonnée, point_a_interpoler):
+    result = MyInterpollationFunctions.newton(ListeAbscisse, ListeOrdonnée, point_a_interpoler)
+
+    print("\nValue at ", point_a_interpoler, ' is ', result)
+
+
 if __name__ == "__main__":
     input = parserInput()
     inputConforme = traiterInput(input)
 
-    donneesTriee = sortingAlgorithms.selectionSort(inputConforme)
+    if (input.methode == 'newton'):
+        donneesTriee = reversed(inputConforme)
+    else:
+        donneesTriee = sortingAlgorithms.selectionSort(inputConforme)
 
     ListeAbscisse = []
     ListeOrdonnée = []
@@ -60,12 +78,17 @@ if __name__ == "__main__":
         ListeAbscisse.append(couple[0])
         ListeOrdonnée.append(couple[1])
 
+    if (input.methode == "lagrange"):
+        executerLagrange(ListeAbscisse, ListeOrdonnée)
+    elif (input.methode == "newton"):
+        executerNewton(ListeAbscisse, ListeOrdonnée, input.pointNewton)
 
 
-    # TODO : joli output + test assertion
+
+
+    # TODO : joli output fichier + test assertion
+    # déduire l'équation avec newton
 
     # print("Début de l'output :\n")
-    #
-    # executerLagrange(ListeAbscisse, ListeOrdonnée)
-    #
+
     # print("\nFin de l'output")
