@@ -3,8 +3,6 @@ import argparse
 import sortingAlgorithms
 import MyInterpollationFunctions
 import sympy
-import sys
-import pandas as pd
 
 
 def parserInput():
@@ -55,12 +53,22 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
 
     MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 10), ListeAbscisse, ListeOrdonnée)
 
-
 def executerNewton(ListeAbscisse, ListeOrdonnée, point_a_interpoler):
     result = MyInterpollationFunctions.newton(ListeAbscisse, ListeOrdonnée, point_a_interpoler)
+    print("Utilisation de l'interpolation de Newton : ")
 
-    print("\nValue at ", point_a_interpoler, ' is ', result)
+    print("\nL'image de ", point_a_interpoler, ' est ', result)
 
+def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
+    result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnée)
+
+    print("Utilisation de la méthode des moindres carrées : ")
+
+    equation = str(str(result[0]) + "*x + " + str(result[1]))
+
+    print("\nL'équation linéaire résultante est : ",equation)
+
+    MyInterpollationFunctions.DessinerGraphe(str(equation), (0,10), ListeAbscisse, ListeOrdonnée)
 
 if __name__ == "__main__":
     input = parserInput()
@@ -82,6 +90,8 @@ if __name__ == "__main__":
         executerLagrange(ListeAbscisse, ListeOrdonnée)
     elif (input.methode == "newton"):
         executerNewton(ListeAbscisse, ListeOrdonnée, input.pointNewton)
+    elif (input.methode == "carres"):
+        executerMoindresCarres(ListeAbscisse, ListeOrdonnée)
 
 
 

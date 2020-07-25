@@ -35,19 +35,35 @@ def newton(ListeAbscisse, ListeOrdonnée, xi):
         table[i][0] = ListeAbscisse[i]
         table[i][1] = ListeOrdonnée[i]
 
-    for i in range(2, table.shape[1]):
-        for j in range(i - 1, table.shape[0]):
+    for i in range(2, len(table[1])):
+        for j in range(i - 1, len(table[0])-1):
             table[j][i] = (table[j][i - 1] - table[j - 1][i - 1]) / (ListeAbscisse[j] - ListeAbscisse[j - i + 1])
 
     afficherDifferencesDivisees(table)
 
     imageDeXi = 0
-    for i in range(table.shape[0]):
+    for i in range(len(table[0])-1):
         tmp = table[i][i + 1]
         for j in range(i):
             tmp *= (xi - ListeAbscisse[j])
         imageDeXi += tmp
     return imageDeXi
+
+
+def moindresCarres(ListeAbscisse, ListeOrdonnée):
+    taille = len(ListeAbscisse)
+    moyenneAbscisse = sum(ListeAbscisse) / taille
+    moyenneOrdonnée = sum(ListeOrdonnée) / taille
+
+    variance_x, covariance_x = 0, 0
+    for x, y in zip(ListeAbscisse, ListeOrdonnée):
+        temp = x - moyenneAbscisse
+        variance_x += temp ** 2
+        covariance_x += temp * (y - moyenneOrdonnée)
+
+    a = covariance_x / variance_x
+    b = moyenneOrdonnée - a * moyenneAbscisse
+    return (a, b)
 
 def DessinerGraphe(expression, echelle, ListeAbscisse, ListeOrdonnée):
     plt.scatter(ListeAbscisse, ListeOrdonnée, c='k')
@@ -56,5 +72,5 @@ def DessinerGraphe(expression, echelle, ListeAbscisse, ListeOrdonnée):
     plt.plot(x, y, linestyle=':')
     plt.title(str(expression).replace("**","^"))
     for x, y in zip(ListeAbscisse, ListeOrdonnée):
-        plt.text(x, y, '({}, {})'.format(x, y))
+        plt.text(x, y, ' ({}, {})'.format(x, y))
     plt.show()
