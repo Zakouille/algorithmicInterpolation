@@ -54,10 +54,12 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
     MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 10), ListeAbscisse, ListeOrdonnée)
 
 def executerNewton(ListeAbscisse, ListeOrdonnée, point_a_interpoler):
-    result = MyInterpollationFunctions.newton(ListeAbscisse, ListeOrdonnée, point_a_interpoler)
+    imagePoint, polynomiale = MyInterpollationFunctions.newtonInterpolation(ListeAbscisse, ListeOrdonnée, point_a_interpoler)
     print("Utilisation de l'interpolation de Newton : ")
 
-    print("\nL'image de ", point_a_interpoler, ' est ', result)
+    print("La polynomiale déduite est : ", polynomiale)
+
+    print("\nL'image de ", point_a_interpoler, ' est ', imagePoint)
 
 def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
     result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnée)
@@ -74,10 +76,7 @@ if __name__ == "__main__":
     input = parserInput()
     inputConforme = traiterInput(input)
 
-    if (input.methode == 'newton'):
-        donneesTriee = reversed(inputConforme)
-    else:
-        donneesTriee = sortingAlgorithms.selectionSort(inputConforme)
+    donneesTriee = sortingAlgorithms.selectionSort(inputConforme)
 
     ListeAbscisse = []
     ListeOrdonnée = []
