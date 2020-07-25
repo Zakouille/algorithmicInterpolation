@@ -18,7 +18,6 @@ def parserInput():
     args = parser.parse_args()
     return args
 
-
 def traiterInput(input):
     pointsFormatString = literal_eval(input.data)
     temp1 = pointsFormatString.replace('(', '')
@@ -39,7 +38,6 @@ def traiterInput(input):
 
     return resultat
 
-
 def executerLagrange(ListeAbscisse, ListeOrdonnée):
     print("Résultat en utilisant l'interpollation de Lagrange :\n")
 
@@ -53,13 +51,14 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
 
     MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 10), ListeAbscisse, ListeOrdonnée)
 
-def executerNewton(ListeAbscisse, ListeOrdonnée, point_a_interpoler):
-    imagePoint, polynomiale = MyInterpollationFunctions.newtonInterpolation(ListeAbscisse, ListeOrdonnée, point_a_interpoler)
+def executerNewton(ListeAbscisse, ListeOrdonnée):
     print("Utilisation de l'interpolation de Newton : ")
 
-    print("La polynomiale déduite est : ", polynomiale)
+    polynomiale = MyInterpollationFunctions.newtonInterpolation(ListeAbscisse, ListeOrdonnée)
 
-    print("\nL'image de ", point_a_interpoler, ' est ', imagePoint)
+    print("\nLa polynomiale déduite est : ", str(polynomiale))
+
+    MyInterpollationFunctions.DessinerGraphe(str(polynomiale), (0,10), ListeAbscisse, ListeOrdonnée)
 
 def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
     result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnée)
@@ -68,9 +67,12 @@ def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
 
     equation = str(str(result[0]) + "*x + " + str(result[1]))
 
-    print("\nL'équation linéaire résultante est : ",equation)
+    print("\nPour un modèle 'ax + b', l'équation linéaire résultante est : ",equation)
 
     MyInterpollationFunctions.DessinerGraphe(str(equation), (0,10), ListeAbscisse, ListeOrdonnée)
+
+def executerSimpson():
+    pass
 
 if __name__ == "__main__":
     input = parserInput()
@@ -88,7 +90,7 @@ if __name__ == "__main__":
     if (input.methode == "lagrange"):
         executerLagrange(ListeAbscisse, ListeOrdonnée)
     elif (input.methode == "newton"):
-        executerNewton(ListeAbscisse, ListeOrdonnée, input.pointNewton)
+        executerNewton(ListeAbscisse, ListeOrdonnée)
     elif (input.methode == "carres"):
         executerMoindresCarres(ListeAbscisse, ListeOrdonnée)
 
@@ -96,7 +98,6 @@ if __name__ == "__main__":
 
 
     # TODO : joli output fichier + test assertion
-    # déduire l'équation avec newton
 
     # print("Début de l'output :\n")
 

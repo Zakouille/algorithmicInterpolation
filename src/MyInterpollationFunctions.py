@@ -2,7 +2,6 @@ import sympy.polys.polyfuncs
 import sympy
 import matplotlib.pyplot as plt
 import numpy as np
-import sortingAlgorithms
 
 
 def Lagrange(ListeAbscisse, ListeOrdonnée):
@@ -21,17 +20,17 @@ def Lagrange(ListeAbscisse, ListeOrdonnée):
 
 
 def afficherDifferencesDivisees(tableDiff):
-    print("Tableau des différences divisées :")
+    print("\nTableau des différences divisées :")
     print(tableDiff)
 
     nombreLigne = (len(tableDiff))
     nombreColonne = (len(tableDiff[0]))
 
     coefficients = []
-    for i in range(nombreLigne - 1):
-        for j in range(nombreColonne - 1):
-            if (tableDiff[i][j] != 0 and tableDiff[i][j + 1] == 0):
-                coefficients.append(tableDiff[i][j])
+    j = 1
+    for i in range(0, nombreLigne - 1):
+        coefficients.append(tableDiff[i][j])
+        j += 1
     coefficients.append(tableDiff[nombreLigne - 1][nombreColonne - 1])
 
     print("\nNos coefficients sont donc la diagonale du tableau : ", coefficients)
@@ -60,11 +59,12 @@ def newtonPolynomiale(ListeAbscisse, ListeOrdonnée, tableDiff):
     for coeff in coefficients[1:]:
         polynomiale += produitsAbscisse[j] * coeff
         j = j + 1
-    print(polynomiale)
-    return str(sympy.simplify(polynomiale))
+
+    print("\nPolynomiale non simplifiée :", polynomiale)
+    return sympy.simplify(polynomiale)
 
 
-def newtonInterpolation(ListeAbscisse, ListeOrdonnée, xi):
+def newtonInterpolation(ListeAbscisse, ListeOrdonnée):
     tableDiff = np.zeros([len(ListeAbscisse), len(ListeAbscisse) + 1], dtype=float)
 
     for i in range(len(ListeAbscisse)):
@@ -73,19 +73,14 @@ def newtonInterpolation(ListeAbscisse, ListeOrdonnée, xi):
 
     for i in range(2, len(tableDiff[1])):
         for j in range(i - 1, len(tableDiff[0]) - 1):
-            tableDiff[j][i] = (tableDiff[j][i - 1] - tableDiff[j - 1][i - 1]) / (ListeAbscisse[j] - ListeAbscisse[j - i + 1])
+            tableDiff[j][i] = (tableDiff[j][i - 1] - tableDiff[j - 1][i - 1]) / (
+                    ListeAbscisse[j] - ListeAbscisse[j - i + 1])
 
     afficherDifferencesDivisees(tableDiff)
 
     polynomial = newtonPolynomiale(ListeAbscisse, ListeOrdonnée, tableDiff)
 
-    imageDeXi = 0
-    for i in range(len(tableDiff[0]) - 1):
-        tmp = tableDiff[i][i + 1]
-        for j in range(i):
-            tmp *= (xi - ListeAbscisse[j])
-        imageDeXi += tmp
-    return imageDeXi, polynomial
+    return polynomial
 
 
 def moindresCarres(ListeAbscisse, ListeOrdonnée):
