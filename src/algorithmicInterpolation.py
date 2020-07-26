@@ -54,7 +54,7 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
 def executerNewton(ListeAbscisse, ListeOrdonnée):
     print("Utilisation de l'interpolation de Newton : ")
 
-    polynomiale = MyInterpollationFunctions.newtonInterpolation(ListeAbscisse, ListeOrdonnée)
+    polynomiale = MyInterpollationFunctions.Newton(ListeAbscisse, ListeOrdonnée)
 
     print("\nPolynomiale non simplifiée :", polynomiale)
 

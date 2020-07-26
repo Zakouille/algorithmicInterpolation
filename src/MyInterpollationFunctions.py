@@ -63,7 +63,7 @@ def newtonPolynomiale(ListeAbscisse, ListeOrdonnée, tableDiff):
     return polynomiale
 
 
-def newtonInterpolation(ListeAbscisse, ListeOrdonnée):
+def Newton(ListeAbscisse, ListeOrdonnée):
     tableDiff = np.zeros([len(ListeAbscisse), len(ListeAbscisse) + 1], dtype=float)
 
     for i in range(len(ListeAbscisse)):
