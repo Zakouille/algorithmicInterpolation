@@ -33,7 +33,7 @@ def afficherDifferencesDivisees(tableDiff):
         j += 1
     coefficients.append(tableDiff[nombreLigne - 1][nombreColonne - 1])
 
-    print("\nNos coefficients sont donc la diagonale du tableau : ", coefficients)
+    print("\nNos coefficients sont donc la diagonale du tableau (avant les zéros) : ", coefficients)
 
 
 def newtonPolynomiale(ListeAbscisse, ListeOrdonnée, tableDiff):
@@ -60,8 +60,7 @@ def newtonPolynomiale(ListeAbscisse, ListeOrdonnée, tableDiff):
         polynomiale += produitsAbscisse[j] * coeff
         j = j + 1
 
-    print("\nPolynomiale non simplifiée :", polynomiale)
-    return sympy.simplify(polynomiale)
+    return polynomiale
 
 
 def newtonInterpolation(ListeAbscisse, ListeOrdonnée):
@@ -94,9 +93,29 @@ def moindresCarres(ListeAbscisse, ListeOrdonnée):
         variance_x += temp ** 2
         covariance_x += temp * (y - moyenneOrdonnée)
 
+    print("\nCovariance = ", covariance_x, " , Variance = ", variance_x)
+
     a = covariance_x / variance_x
+    print("\na =  covariance / variance = ", covariance_x, " / ", variance_x, " = ", a)
     b = moyenneOrdonnée - a * moyenneAbscisse
-    return (a, b)
+    print("\nb = moyenneOrdonnée - a * moyenneAbscisse = ",b)
+
+    X = sympy.symbols('x')
+    expression = a*X + b
+    return expression
+
+
+def simpson(ListeAbscisse, ListeOrdonnée):
+    h = ListeAbscisse[1] - ListeAbscisse[0]
+    i = 1
+    total = ListeOrdonnée[0] + ListeOrdonnée[-1]
+    for y in ListeOrdonnée[1:-1]:
+        if i % 2 == 0:
+            total += 2 * y
+        else:
+            total += 4 * y
+        i += 1
+    return total * (h / 3.0)
 
 
 def DessinerGraphe(expression, echelle, ListeAbscisse, ListeOrdonnée):

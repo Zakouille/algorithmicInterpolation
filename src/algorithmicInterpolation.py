@@ -1,6 +1,7 @@
+import random
 from ast import literal_eval
 import argparse
-import sortingAlgorithms
+import MySortingAlgorithms
 import MyInterpollationFunctions
 import sympy
 
@@ -45,40 +46,46 @@ def executerLagrange(ListeAbscisse, ListeOrdonnée):
     lagrangeInterpollation = MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnée)
     print(lagrangeInterpollation)
 
-    print("Expression simplifiée de l'interpollation de Lagrange : ")
+    print("\nExpression simplifiée de l'interpollation de Lagrange : ")
     equationDroite = sympy.simplify(lagrangeInterpollation)
     print(equationDroite)
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(0, 10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnée)
 
 def executerNewton(ListeAbscisse, ListeOrdonnée):
     print("Utilisation de l'interpolation de Newton : ")
 
     polynomiale = MyInterpollationFunctions.newtonInterpolation(ListeAbscisse, ListeOrdonnée)
 
-    print("\nLa polynomiale déduite est : ", str(polynomiale))
+    print("\nPolynomiale non simplifiée :", polynomiale)
 
-    MyInterpollationFunctions.DessinerGraphe(str(polynomiale), (0,10), ListeAbscisse, ListeOrdonnée)
+    equationSimplifiée = sympy.simplify(polynomiale)
+
+    print("\nLa polynomiale déduite est : ", equationSimplifiée)
+
+    MyInterpollationFunctions.DessinerGraphe(str(equationSimplifiée).replace(".0",""), (ListeAbscisse[0],10), ListeAbscisse, ListeOrdonnée)
 
 def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
-    result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnée)
-
     print("Utilisation de la méthode des moindres carrées : ")
 
-    equation = str(str(result[0]) + "*x + " + str(result[1]))
+    result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnée)
+
+    equation = sympy.simplify(result)
 
     print("\nPour un modèle 'ax + b', l'équation linéaire résultante est : ",equation)
 
-    MyInterpollationFunctions.DessinerGraphe(str(equation), (0,10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equation).replace(".0",""), (ListeAbscisse[0],10), ListeAbscisse, ListeOrdonnée)
 
-def executerSimpson():
-    pass
+def executerSimpson(ListeAbscisse, ListeOrdonnée):
+    result = MyInterpollationFunctions.simpson(ListeAbscisse, ListeOrdonnée)
+    print(result)
 
 if __name__ == "__main__":
     input = parserInput()
     inputConforme = traiterInput(input)
 
-    donneesTriee = sortingAlgorithms.selectionSort(inputConforme)
+    donneesTriee = random.choice([MySortingAlgorithms.TriInsertion,MySortingAlgorithms.TriBulle,
+                                  MySortingAlgorithms.TriSelection])(inputConforme)
 
     ListeAbscisse = []
     ListeOrdonnée = []
@@ -93,11 +100,17 @@ if __name__ == "__main__":
         executerNewton(ListeAbscisse, ListeOrdonnée)
     elif (input.methode == "carres"):
         executerMoindresCarres(ListeAbscisse, ListeOrdonnée)
+    elif (input.methode == "simpson"):
+        executerSimpson(ListeAbscisse, ListeOrdonnée)
 
 
 
 
     # TODO : joli output fichier + test assertion
+
+    # TODO : afichage matplot pr newton + simpson
+
+    # TODO : plusieurs algo de tri + random
 
     # print("Début de l'output :\n")
 
