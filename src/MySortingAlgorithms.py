@@ -1,5 +1,5 @@
-def TriInsertion(tableau):
-    print('Algorithme utilisé pour trié le nuage de point : Tri par insersion\n')
+def TriInsertion(tableau, *args):
+    print('Algorithme utilisé pour trier le nuage de point : Tri par insersion\n')
     for i in range(1, len(tableau)):
         j = i - 1
         prochainElement = tableau[i]
@@ -11,8 +11,8 @@ def TriInsertion(tableau):
         tableau[j + 1] = prochainElement
     return tableau
 
-def TriBulle(tableau):
-    print('Algorithme utilisé pour trié le nuage de point : Tri par bulle\n')
+def TriBulle(tableau, *args):
+    print('Algorithme utilisé pour trier le nuage de point : Tri par bulle\n')
 
     taille = len(tableau)
 
@@ -27,8 +27,8 @@ def TriBulle(tableau):
                 tableau[j], tableau[j + 1] = tableau[j + 1], tableau[j]
     return tableau
 
-def TriSelection(tableau):
-    print('Algorithme utilisé pour trié le nuage de point : Tri par sélection\n')
+def TriSelection(tableau, *args):
+    print('Algorithme utilisé pour trier le nuage de point : Tri par sélection\n')
 
     taille = len(tableau)
     for i in range(taille):
@@ -47,13 +47,29 @@ def TriSelection(tableau):
 
     return tableau
 
-def reverse(data_list):
-    length = len(data_list)
-    s = length
+def Partition(tableau, debut, fin):
+    i = (debut - 1)  # index du plus petit élément
+    pivot = tableau[fin]
 
-    new_list = [None]*length
+    for j in range(debut, fin):
 
-    for item in data_list:
-        s = s - 1
-        new_list[s] = item
-    return new_list
+        # Si l'élément actuel est plus petit ou égal au pivot
+        if tableau[j] <= pivot:
+
+            # On incrémente l'index du plus petit élément
+            i += 1
+            tableau[i], tableau[j] = tableau[j], tableau[i]
+
+    tableau[i + 1], tableau[fin] = tableau[fin], tableau[i + 1]
+    return (i + 1)
+
+def TriRapide(tableau, debut, fin, premiereIteration):
+    if(premiereIteration == 'true'):
+        print('Algorithme utilisé pour trier le nuage de point : Tri rapide\n')
+    if debut < fin:
+        indexPartition = Partition(tableau, debut, fin)
+
+        # Trier récursivement les éléments du coté droit et gauche et la partition
+        TriRapide(tableau, debut, indexPartition - 1, 'false')
+        TriRapide(tableau, indexPartition + 1, fin, 'false')
+        return tableau

@@ -5,7 +5,6 @@ import MySortingAlgorithms
 import MyInterpollationFunctions
 import sympy
 
-
 def parserInput():
     parser = argparse.ArgumentParser()
 
@@ -63,7 +62,7 @@ def executerNewton(ListeAbscisse, ListeOrdonnée):
 
     print("\nLa polynomiale déduite est : ", equationSimplifiée)
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationSimplifiée).replace(".0",""), (ListeAbscisse[0],10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equationSimplifiée), (ListeAbscisse[0],10), ListeAbscisse, ListeOrdonnée)
 
 def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
     print("Utilisation de la méthode des moindres carrées : ")
@@ -74,7 +73,7 @@ def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
 
     print("\nPour un modèle 'ax + b', l'équation linéaire résultante est : ",equation)
 
-    MyInterpollationFunctions.DessinerGraphe(str(equation).replace(".0",""), (ListeAbscisse[0],10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equation), (ListeAbscisse[0],10), ListeAbscisse, ListeOrdonnée)
 
 def executerSimpson(ListeAbscisse, ListeOrdonnée):
     result = MyInterpollationFunctions.simpson(ListeAbscisse, ListeOrdonnée)
@@ -84,13 +83,16 @@ if __name__ == "__main__":
     input = parserInput()
     inputConforme = traiterInput(input)
 
-    donneesTriee = random.choice([MySortingAlgorithms.TriInsertion,MySortingAlgorithms.TriBulle,
-                                  MySortingAlgorithms.TriSelection])(inputConforme)
+    algosDeTri = [MySortingAlgorithms.TriInsertion, MySortingAlgorithms.TriBulle,
+                  MySortingAlgorithms.TriSelection, MySortingAlgorithms.TriRapide]
+
+    donneesTriees = random.choice(algosDeTri)(inputConforme, 0, len(inputConforme)-1, 'true')
+    print("Liste des points triées : ", donneesTriees, "\n")
 
     ListeAbscisse = []
     ListeOrdonnée = []
 
-    for couple in donneesTriee:
+    for couple in donneesTriees:
         ListeAbscisse.append(couple[0])
         ListeOrdonnée.append(couple[1])
 
@@ -108,9 +110,8 @@ if __name__ == "__main__":
 
     # TODO : joli output fichier + test assertion
 
-    # TODO : afichage matplot pr newton + simpson
+    # TODO : affichage matplot pr newton + simpson
 
-    # TODO : plusieurs algo de tri + random
 
     # print("Début de l'output :\n")
 
