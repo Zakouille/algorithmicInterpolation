@@ -6,9 +6,6 @@ import numpy as np
 
 def Lagrange(ListeAbscisse, ListeOrdonnée):
     X = sympy.symbols('x')
-    if len(ListeAbscisse) != len(ListeOrdonnée):
-        print("Les listes d'abscisses et d'ordonnées en entrée n'ont pas la même longueur")
-        return 1
     expression = 0
     for k in range(len(ListeAbscisse)):
         terme = 1
@@ -98,24 +95,35 @@ def moindresCarres(ListeAbscisse, ListeOrdonnée):
     a = covariance_x / variance_x
     print("\na =  covariance / variance = ", covariance_x, " / ", variance_x, " = ", a)
     b = moyenneOrdonnée - a * moyenneAbscisse
-    print("\nb = moyenneOrdonnée - a * moyenneAbscisse = ",b)
+    print("\nb = moyenneOrdonnée - a * moyenneAbscisse = ", b)
 
     X = sympy.symbols('x')
-    expression = a*X + b
+    expression = a * X + b
     return expression
 
 
-def simpson(ListeAbscisse, ListeOrdonnée):
-    h = ListeAbscisse[1] - ListeAbscisse[0]
-    i = 1
-    total = ListeOrdonnée[0] + ListeOrdonnée[-1]
-    for y in ListeOrdonnée[1:-1]:
-        if i % 2 == 0:
-            total += 2 * y
-        else:
-            total += 4 * y
-        i += 1
-    return total * (h / 3.0)
+def trapeze(fonction, pointDepart, pointFin, subintervales):
+    x = sympy.symbols('x')
+    h = float(pointFin - pointDepart) / subintervales
+    result = 0.5 * fonction.evalf(subs={x: pointDepart}) + 0.5 * fonction.evalf(subs={x: pointFin})
+    for i in range(1, subintervales):
+        result += fonction.evalf(subs={x: (pointDepart + i * h)})
+    result *= h
+    return result
+
+
+def simpson(fonction, pointDepart, pointFin, subintervales):
+    x = sympy.symbols('x')
+
+    h = (pointFin - pointDepart) / subintervales
+    s = fonction.evalf(subs={x: pointDepart}) + fonction.evalf(subs={x: pointFin})
+
+    for i in range(1, subintervales, 2):
+        s += 4 * fonction.evalf(subs={x: (pointDepart + i * h)})
+    for i in range(2, subintervales - 1, 2):
+        s += 2 * fonction.evalf(subs={x: (pointDepart + i * h)})
+
+    return s * h / 3
 
 
 def DessinerGraphe(expression, echelle, ListeAbscisse, ListeOrdonnée):
