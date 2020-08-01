@@ -39,23 +39,23 @@ def traiterInput(input):
 
     return resultat
 
-def executerLagrange(ListeAbscisse, ListeOrdonnée):
+def executerLagrange(ListeAbscisse, ListeOrdonnee):
     print("Résultat en utilisant l'interpollation de Lagrange :\n")
 
     print("Expression complète de l'interpollation de Lagrange: ")
-    lagrangeInterpollation = MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnée)
+    lagrangeInterpollation = MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee)
     print(lagrangeInterpollation)
 
     print("\nExpression simplifiée de l'interpollation de Lagrange : ")
     equationDroite = sympy.simplify(lagrangeInterpollation)
     print(green(equationDroite))
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
-def executerNewton(ListeAbscisse, ListeOrdonnée):
+def executerNewton(ListeAbscisse, ListeOrdonnee):
     print("Utilisation de l'interpolation de Newton : ")
 
-    polynomiale = MyInterpollationFunctions.Newton(ListeAbscisse, ListeOrdonnée)
+    polynomiale = MyInterpollationFunctions.Newton(ListeAbscisse, ListeOrdonnee)
 
     print("\nPolynomiale non simplifiée :", polynomiale)
 
@@ -64,19 +64,19 @@ def executerNewton(ListeAbscisse, ListeOrdonnée):
     print("\nLa polynomiale déduite est : ")
     print(green(equationSimplifiée))
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationSimplifiée), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equationSimplifiée), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
-def executerMoindresCarres(ListeAbscisse, ListeOrdonnée):
+def executerMoindresCarres(ListeAbscisse, ListeOrdonnee):
     print("Utilisation de la méthode des moindres carrées : ")
 
-    result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnée)
+    result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnee)
 
     equation = sympy.simplify(result)
 
     print("\nPour un modèle 'ax + b', l'équation linéaire résultante est : ")
     print(green(equation))
 
-    MyInterpollationFunctions.DessinerGraphe(str(equation), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnée)
+    MyInterpollationFunctions.DessinerGraphe(str(equation), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
 def executerTrapeze(fonction, ListeAbscisse, range):
     print("Résultat en utilisant la méthode des trapèzes :\n")
@@ -102,23 +102,23 @@ if __name__ == "__main__":
     print("Liste des points triées : ", blue(donneesTriees), "\n")
 
     ListeAbscisse = []
-    ListeOrdonnée = []
+    ListeOrdonnee = []
 
     for couple in donneesTriees:
         ListeAbscisse.append(couple[0])
-        ListeOrdonnée.append(couple[1])
+        ListeOrdonnee.append(couple[1])
 
     if (input.methode == "lagrange"):
-        executerLagrange(ListeAbscisse, ListeOrdonnée)
+        executerLagrange(ListeAbscisse, ListeOrdonnee)
     elif (input.methode == "newton"):
-        executerNewton(ListeAbscisse, ListeOrdonnée)
+        executerNewton(ListeAbscisse, ListeOrdonnee)
     elif (input.methode == "carres"):
-        executerMoindresCarres(ListeAbscisse, ListeOrdonnée)
+        executerMoindresCarres(ListeAbscisse, ListeOrdonnee)
     elif (input.methode == "trapeze"):
-        equationFonction = sympy.simplify(MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnée))
+        equationFonction = sympy.simplify(MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee))
         executerTrapeze(equationFonction, ListeAbscisse, 10)
     elif (input.methode == "simpson"):
-        equationFonction = sympy.simplify(MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnée))
+        equationFonction = sympy.simplify(MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee))
         executerSimpson(equationFonction, ListeAbscisse, 10)
 
 
