@@ -1,5 +1,5 @@
-argparse
-sympy
-matplotlib
-numpy
-huepy
+matplotlib==3.3.0
+sympy==1.6.1
+numpy==1.19.1
+huepy==1.2.1
+scipy==1.5.2
