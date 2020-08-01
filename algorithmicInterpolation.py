@@ -2,7 +2,7 @@ import random
 from ast import literal_eval
 import argparse
 import MySortingAlgorithms
-import MyInterpollationFunctions
+import MyInterpolationFunctions
 import sympy
 from huepy import *
 
@@ -43,19 +43,19 @@ def executerLagrange(ListeAbscisse, ListeOrdonnee):
     print("Résultat en utilisant l'interpollation de Lagrange :\n")
 
     print("Expression complète de l'interpollation de Lagrange: ")
-    lagrangeInterpollation = MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee)
+    lagrangeInterpollation = MyInterpolationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee)
     print(lagrangeInterpollation)
 
     print("\nExpression simplifiée de l'interpollation de Lagrange : ")
     equationDroite = sympy.simplify(lagrangeInterpollation)
     print(green(equationDroite))
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationDroite), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
+    MyInterpolationFunctions.DessinerGraphe(str(equationDroite), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
 def executerNewton(ListeAbscisse, ListeOrdonnee):
     print("Utilisation de l'interpolation de Newton : ")
 
-    polynomiale = MyInterpollationFunctions.Newton(ListeAbscisse, ListeOrdonnee)
+    polynomiale = MyInterpolationFunctions.Newton(ListeAbscisse, ListeOrdonnee)
 
     print("\nPolynomiale non simplifiée :", polynomiale)
 
@@ -64,29 +64,29 @@ def executerNewton(ListeAbscisse, ListeOrdonnee):
     print("\nLa polynomiale déduite est : ")
     print(green(equationSimplifiée))
 
-    MyInterpollationFunctions.DessinerGraphe(str(equationSimplifiée), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
+    MyInterpolationFunctions.DessinerGraphe(str(equationSimplifiée), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
 def executerMoindresCarres(ListeAbscisse, ListeOrdonnee):
     print("Utilisation de la méthode des moindres carrées : ")
 
-    result = MyInterpollationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnee)
+    result = MyInterpolationFunctions.moindresCarres(ListeAbscisse, ListeOrdonnee)
 
     equation = sympy.simplify(result)
 
     print("\nPour un modèle 'ax + b', l'équation linéaire résultante est : ")
     print(green(equation))
 
-    MyInterpollationFunctions.DessinerGraphe(str(equation), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
+    MyInterpolationFunctions.DessinerGraphe(str(equation), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
 def executerTrapeze(fonction, ListeAbscisse, range):
     print("Résultat en utilisant la méthode des trapèzes :\n")
-    result = MyInterpollationFunctions.trapeze(fonction, ListeAbscisse[0], ListeAbscisse[-1], range)
+    result = MyInterpolationFunctions.trapeze(fonction, ListeAbscisse[0], ListeAbscisse[-1], range)
     print("Valeur de l'intégrale allant de x =", ListeAbscisse[0], " à x =", ListeAbscisse[-1], " :")
     print(green(result))
 
 def executerSimpson(fonction, ListeAbscisse, range):
     print("Résultat en utilisant la méthode de Simpson :\n")
-    result = MyInterpollationFunctions.simpson(fonction, ListeAbscisse[0], ListeAbscisse[-1], range)
+    result = MyInterpolationFunctions.simpson(fonction, ListeAbscisse[0], ListeAbscisse[-1], range)
     print("Valeur de l'intégrale allant de x =", ListeAbscisse[0], " à x =", ListeAbscisse[-1], " :")
     print(green(result))
 
@@ -115,10 +115,10 @@ if __name__ == "__main__":
     elif (input.methode == "carres"):
         executerMoindresCarres(ListeAbscisse, ListeOrdonnee)
     elif (input.methode == "trapeze"):
-        equationFonction = sympy.simplify(MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee))
+        equationFonction = sympy.simplify(MyInterpolationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee))
         executerTrapeze(equationFonction, ListeAbscisse, 10)
     elif (input.methode == "simpson"):
-        equationFonction = sympy.simplify(MyInterpollationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee))
+        equationFonction = sympy.simplify(MyInterpolationFunctions.Lagrange(ListeAbscisse, ListeOrdonnee))
         executerSimpson(equationFonction, ListeAbscisse, 10)
 
 
