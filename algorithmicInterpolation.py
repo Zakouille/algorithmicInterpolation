@@ -59,12 +59,12 @@ def executerNewton(ListeAbscisse, ListeOrdonnee):
 
     print("\nPolynomiale non simplifiée :", polynomiale)
 
-    equationSimplifiée = sympy.simplify(polynomiale)
+    equationSimplifiee = sympy.simplify(polynomiale)
 
     print("\nLa polynomiale déduite est : ")
-    print(green(equationSimplifiée))
+    print(green(equationSimplifiee))
 
-    MyInterpolationFunctions.DessinerGraphe(str(equationSimplifiée), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
+    MyInterpolationFunctions.DessinerGraphe(str(equationSimplifiee), range(ListeAbscisse[0], 10), ListeAbscisse, ListeOrdonnee)
 
 def executerMoindresCarres(ListeAbscisse, ListeOrdonnee):
     print("Utilisation de la méthode des moindres carrées : ")
