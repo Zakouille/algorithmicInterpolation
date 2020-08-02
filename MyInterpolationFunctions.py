@@ -1,7 +1,7 @@
-import sympy.polys.polyfuncs
 import sympy
 import matplotlib.pyplot as plt
 import numpy as np
+import MySortingAlgorithms
 
 
 def Lagrange(ListeAbscisse, ListeOrdonnee):
@@ -81,8 +81,8 @@ def Newton(ListeAbscisse, ListeOrdonnee):
 
 def moindresCarres(ListeAbscisse, ListeOrdonnee):
     taille = len(ListeAbscisse)
-    moyenneAbscisse = sum(ListeAbscisse) / taille
-    moyenneOrdonnee = sum(ListeOrdonnee) / taille
+    moyenneAbscisse = MySortingAlgorithms.Somme(ListeAbscisse) / taille
+    moyenneOrdonnee = MySortingAlgorithms.Somme(ListeOrdonnee) / taille
 
     variance_x, covariance_x = 0, 0
     for x, y in zip(ListeAbscisse, ListeOrdonnee):

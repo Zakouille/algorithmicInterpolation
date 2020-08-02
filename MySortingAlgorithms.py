@@ -79,3 +79,10 @@ def TriRapide(tableau, debut, fin, premiereIteration):
         TriRapide(tableau, debut, indexPartition - 1, 'false')
         TriRapide(tableau, indexPartition + 1, fin, 'false')
         return tableau
+
+
+def Somme(liste):
+    somme = 0
+    for index in range(0, len(liste)):
+        somme += liste[index]
+    return somme

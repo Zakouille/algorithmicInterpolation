@@ -9,7 +9,7 @@ from scipy import integrate
 
 
 
-class interpollationTesting(unittest.TestCase):
+class interpolationTesting(unittest.TestCase):
 
     def testLagrange(self):
         x = sympy.symbols('x')
