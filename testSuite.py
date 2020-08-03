@@ -36,7 +36,6 @@ class interpolationTesting(unittest.TestCase):
     def testSimpson(self):
         x = sympy.symbols('x')
 
-        print(integrate.simps(x ** 2, 1, 4, 100))
         assert int(MyInterpolationFunctions.simpson(x ** 2, 1, 4, 10)) == 21
 
 

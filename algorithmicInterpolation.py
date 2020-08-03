@@ -1,5 +1,4 @@
 import random
-from ast import literal_eval
 import argparse
 import MySortingAlgorithms
 import MyInterpolationFunctions
@@ -20,10 +19,11 @@ def parserInput():
     return args
 
 def traiterInput(input):
-    pointsFormatString = literal_eval(input.data)
+    pointsFormatString = input.data.replace("'","")
     temp1 = pointsFormatString.replace('(', '')
     temp2 = temp1.replace(')', '')
-    ListePoints = temp2.split(';')
+    temp3 = temp2.replace('"','')
+    ListePoints = temp3.split(';')
 
     NombreColonnes = 2
     NombreLignes = len(ListePoints)
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     # TODO : joli output fichier + test assertion avec lib
 
-    # TODO : test install requirements
+    # TODO : interface graphique
 
 
     # print("Début de l'output :\n")

@@ -82,7 +82,15 @@ def TriRapide(tableau, debut, fin, premiereIteration):
 
 
 def Somme(liste):
+    # équivalent de la fonction built-in : sum()
     somme = 0
     for index in range(0, len(liste)):
         somme += liste[index]
     return somme
+
+def Zip(x, y):
+    # équivalent de la fonction built-in : zip()
+    zip = []
+    for i in range(len(x)):
+        zip.append((x[i], y[i]))
+    return zip
