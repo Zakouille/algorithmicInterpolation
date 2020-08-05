@@ -2,7 +2,7 @@ from huepy import *
 
 # Complexité = O(n^2)
 def TriInsertion(tableau, *args):
-    print('Algorithme utilisé pour trier le nuage de point : ', green("Tri par insersion\n"))
+    print('Algorithme utilisé pour trier le nuage de point : ', green("Tri par insertion\n"))
     for i in range(1, len(tableau)):
         j = i - 1
         prochainElement = tableau[i]
