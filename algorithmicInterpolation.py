@@ -1,6 +1,6 @@
 import random
 import argparse
-import AlgosDeTri
+import algosDeTri
 import fonctionsInterpolation
 import sympy
 from huepy import *
@@ -90,8 +90,8 @@ if __name__ == "__main__":
     input = parserInput()
     inputConforme = traiterInput(input)
 
-    algosDeTri = [AlgosDeTri.TriInsertion, AlgosDeTri.TriBulle,
-                  AlgosDeTri.TriSelection, AlgosDeTri.TriFusion, AlgosDeTri.TriRapide]
+    algosDeTri = [algosDeTri.TriInsertion, algosDeTri.TriBulle,
+                  algosDeTri.TriSelection, algosDeTri.TriFusion, algosDeTri.TriRapide]
 
     donneesTriees = random.choice(algosDeTri)(inputConforme, 'true', 0, len(inputConforme)-1)
     print("Liste des points triée : ", blue(donneesTriees), "\n")
