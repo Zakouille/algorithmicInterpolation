@@ -94,7 +94,7 @@ if __name__ == "__main__":
                   AlgosDeTri.TriSelection, AlgosDeTri.TriFusion, AlgosDeTri.TriRapide]
 
     donneesTriees = random.choice(algosDeTri)(inputConforme, 'true', 0, len(inputConforme)-1)
-    print("Liste des points triées : ", blue(donneesTriees), "\n")
+    print("Liste des points triée : ", blue(donneesTriees), "\n")
 
     ListeAbscisse = []
     ListeOrdonnee = []
