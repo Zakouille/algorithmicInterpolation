@@ -1,6 +1,6 @@
 from huepy import *
 
-
+# Complexité = O(n^2)
 def TriInsertion(tableau, *args):
     print('Algorithme utilisé pour trier le nuage de point : ', green("Tri par insersion\n"))
     for i in range(1, len(tableau)):
@@ -14,7 +14,7 @@ def TriInsertion(tableau, *args):
         tableau[j + 1] = prochainElement
     return tableau
 
-
+# Complexité = O(n^2)
 def TriBulle(tableau, *args):
     print('Algorithme utilisé pour trier le nuage de point : ', green("Tri par bulle\n"))
 
@@ -31,7 +31,7 @@ def TriBulle(tableau, *args):
                 tableau[j], tableau[j + 1] = tableau[j + 1], tableau[j]
     return tableau
 
-
+# Complexité = O(n^2)
 def TriSelection(tableau, *args):
     print('Algorithme utilisé pour trier le nuage de point : ', green("Tri par sélection\n"))
 
@@ -52,7 +52,57 @@ def TriSelection(tableau, *args):
 
     return tableau
 
+# Complexité = O(n log(n))
+def TriFusion(tableau, premiereIteration, *args):
+    if (premiereIteration == 'true'):
+        print('Algorithme utilisé pour trier le nuage de point : ', green("Tri par fusion\n"))
 
+    #print('Tri Fusion du tableau : ',tableau)
+
+    if len(tableau) > 1:
+        milieu = len(tableau) // 2
+        gauche = tableau[:milieu]
+        droite = tableau[milieu:]
+
+        # On fait un appel récursif sur chaque partie du tableau
+        TriFusion(gauche, 'false')
+        TriFusion(droite, 'false')
+
+        # Deux itérateurs pour traverser respectivement les deux parties du tableau
+        i = 0
+        j = 0
+
+        # Itérateur pour l'objet tableau principal (Le tableau complet)
+        k = 0
+
+        while i < len(gauche) and j < len(droite):
+            if gauche[i] < droite[j]:
+                # On prend la valeur du tableau gauche
+                tableau[k] = gauche[i]
+                # On passe à l'élément suivant pour le tableau gauche
+                i += 1
+            else:
+                # On prend la valeur du tableau de droite
+                tableau[k] = droite[j]
+                # On passe à l'élément suivant pour le tableau de droite
+                j += 1
+            # On passe à la prochaine case du tableau principal
+            k += 1
+
+        # For all the remaining values
+        while i < len(gauche):
+            tableau[k] = gauche[i]
+            i += 1
+            k += 1
+
+        while j < len(droite):
+            tableau[k] = droite[j]
+            j += 1
+            k += 1
+
+    return tableau
+
+# Complexité = O(n)
 def Partition(tableau, debut, fin):
     i = (debut - 1)  # index du plus petit élément
     pivot = tableau[fin]
@@ -68,19 +118,20 @@ def Partition(tableau, debut, fin):
     tableau[i + 1], tableau[fin] = tableau[fin], tableau[i + 1]
     return (i + 1)
 
-
-def TriRapide(tableau, debut, fin, premiereIteration):
+# Complexité = O(n^2) ou Theta(n log(n))
+def TriRapide(tableau, premiereIteration, debut, fin):
     if (premiereIteration == 'true'):
         print('Algorithme utilisé pour trier le nuage de point : ', green("Tri rapide\n"))
+
     if debut < fin:
         indexPartition = Partition(tableau, debut, fin)
 
         # Trier récursivement les éléments du coté droit et gauche et la partition
-        TriRapide(tableau, debut, indexPartition - 1, 'false')
-        TriRapide(tableau, indexPartition + 1, fin, 'false')
+        TriRapide(tableau, 'false', debut, indexPartition - 1)
+        TriRapide(tableau, 'false', indexPartition + 1, fin)
         return tableau
 
-
+# Complexité = O(n)
 def Somme(liste):
     # équivalent de la fonction built-in : sum()
     somme = 0
@@ -88,6 +139,7 @@ def Somme(liste):
         somme += liste[index]
     return somme
 
+# Complexité = O(n)
 def Zip(x, y):
     # équivalent de la fonction built-in : zip()
     zip = []

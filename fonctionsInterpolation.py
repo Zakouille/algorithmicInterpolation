@@ -1,7 +1,7 @@
 import sympy
 import matplotlib.pyplot as plt
 import numpy as np
-import MySortingAlgorithms
+import AlgosDeTri
 
 
 def Lagrange(ListeAbscisse, ListeOrdonnee):
@@ -81,11 +81,11 @@ def Newton(ListeAbscisse, ListeOrdonnee):
 
 def moindresCarres(ListeAbscisse, ListeOrdonnee):
     taille = len(ListeAbscisse)
-    moyenneAbscisse = MySortingAlgorithms.Somme(ListeAbscisse) / taille
-    moyenneOrdonnee = MySortingAlgorithms.Somme(ListeOrdonnee) / taille
+    moyenneAbscisse = AlgosDeTri.Somme(ListeAbscisse) / taille
+    moyenneOrdonnee = AlgosDeTri.Somme(ListeOrdonnee) / taille
 
     variance_x, covariance_x = 0, 0
-    for x, y in MySortingAlgorithms.Zip(ListeAbscisse, ListeOrdonnee):
+    for x, y in AlgosDeTri.Zip(ListeAbscisse, ListeOrdonnee):
         temp = x - moyenneAbscisse
         variance_x += temp ** 2
         covariance_x += temp * (y - moyenneOrdonnee)
